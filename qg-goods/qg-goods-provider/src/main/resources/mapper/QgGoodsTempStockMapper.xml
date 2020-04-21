@@ -3,25 +3,48 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "mybatis-3-mapper.dtd">
 <mapper namespace="cn.zq.dao.QgGoodsTempStockMapper">
-    <insert id="insert">
+    <insert id="insertTry">
 
+        INSERT INTO qg_goods_temp_stock_temp
+        (
+        goodsId,
+        userId,
+        STATUS,
+        createdTime,
+        updatedTime,
+        xid
+        )
+        VALUES
+        (
+        #{gts.goodsId},
+        #{gts.userId},
+        #{gts.status},
+        #{gts.createdTime},
+        #{gts.updatedTime},
+        #{xid}
+        );
+
+
+    </insert>
+    <insert id="insertConfirm">
         INSERT INTO qg_goods_temp_stock
         (
+        id,
         goodsId,
         userId,
         STATUS,
         createdTime,
         updatedTime
         )
-        VALUES
-        (
-        #{goodsId},
-        #{userId},
-        #{status},
-        #{createdTime},
-        #{updatedTime}
-        );
-
+        SELECT id,goodsId,userId,STATUS,
+        createdTime,
+        updatedTime
+        From qg_goods_temp_stock_temp
+        WHERE xid =#{xid}
 
     </insert>
+
+    <delete id="insertCancel">
+        DELETE FROM qg_goods_temp_stock_temp WHERE xid=#{xid}
+    </delete>
 </mapper>

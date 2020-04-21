@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class LocalQgGoodsService {
@@ -20,12 +21,13 @@ public class LocalQgGoodsService {
     private QgOrderService qgOrderService;
 
     public boolean qg(String userId, String goodsId, Integer num){
+
         QgGoodsTempStock gts = new QgGoodsTempStock();
         gts.setCreatedTime(new Date());
         gts.setGoodsId(goodsId);
         gts.setStatus(0);
         gts.setUserId(userId);
-        int count1 = qgGoodTempStockService.insert(gts);
+
 
         QgOrder order = new QgOrder();
         order.setCreatedTime(new Date());
@@ -35,8 +37,27 @@ public class LocalQgGoodsService {
         order.setStatus(0);
         order.setUserId(userId);
 
-        int count2 = qgOrderService.insert(order);
-
-        return count1*count2>0;
+        //TCC分布式事务
+        String xid = UUID.randomUUID().toString();//产生事务id
+        try {
+            //1.Try
+            int count1 = qgGoodTempStockService.insertTry(xid,gts);
+            System.out.println("goods---->try,结果:"+count1);
+            int count2 = qgOrderService.insertTry(xid,order);
+            System.out.println("order---->try,结果:"+count2);
+            //2.confirm
+            if (count1*count2>0) {
+                System.out.println("confirm提交分布式事务");
+                qgGoodTempStockService.insertConfirm(xid);
+                qgOrderService.insertConfirm(xid);
+                return count1*count2>0;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("cancel回滚分布式事务");
+        qgOrderService.insertCancel(xid);
+        qgGoodTempStockService.insertCancel(xid);
+        return false;
     }
 }

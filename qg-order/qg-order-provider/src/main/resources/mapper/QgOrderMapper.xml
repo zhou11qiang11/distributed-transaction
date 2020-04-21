@@ -4,10 +4,42 @@
         "mybatis-3-mapper.dtd">
 <mapper namespace="cn.zq.dao.QgOrderMapper">
 
-    <insert id="insert">
+    <insert id="insertTry">
 
-        INSERT INTO qg_order.qg_order
+        INSERT INTO qg_order_temp
         (
+        userId,
+        stockId,
+        orderNo,
+        goodsId,
+        num,
+        amount,
+        STATUS,
+        aliTradeNo,
+        createdTime,
+        updatedTime,
+        xid
+        )
+        VALUES
+        (
+        #{order.userId},
+        #{order.stockId},
+        #{order.orderNo},
+        #{order.goodsId},
+        #{order.num},
+        #{order.amount},
+        #{order.status},
+        #{order.aliTradeNo},
+        #{order.createdTime},
+        #{order.updatedTime},
+        #{xid}
+        );
+
+    </insert>
+    <insert id="insertConfirm">
+        INSERT INTO qg_order
+        (
+        id,
         userId,
         stockId,
         orderNo,
@@ -19,20 +51,24 @@
         createdTime,
         updatedTime
         )
-        VALUES
-        (
-        #{userId},
-        #{stockId},
-        #{orderNo},
-        #{goodsId},
-        #{num},
-        #{amount},
-        #{status},
-        #{aliTradeNo},
-        #{createdTime},
-        #{updatedTime}
-        );
+        SELECT id,
+        userId,
+        stockId,
+        orderNo,
+        goodsId,
+        num,
+        amount,
+        STATUS,
+        aliTradeNo,
+        createdTime,
+        updatedTime
+        From qg_order_temp
+        WHERE xid =#{xid}
 
     </insert>
+
+    <delete id="insertCancel">
+        DELETE FROM qg_order_temp WHERE xid=#{xid}
+    </delete>
 
 </mapper>

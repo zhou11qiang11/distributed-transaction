@@ -10,9 +10,22 @@ import javax.annotation.Resource;
 public class QgOrderServiceImpl  implements QgOrderService{
     @Resource
     private QgOrderMapper qgOrderMapper;
+
     @Override
-    public int insert(QgOrder order) {
-//        throw new RuntimeException("模拟异常");
-        return qgOrderMapper.insert(order);
+    public int insertTry(String xid, QgOrder order) {
+        //throw new RuntimeException("模拟异常");
+        return qgOrderMapper.insertTry(xid, order);
+    }
+
+    @Override
+    public int insertConfirm(String xid) {
+        qgOrderMapper.insertConfirm(xid);
+        qgOrderMapper.insertCancel(xid);
+        return  1;
+    }
+
+    @Override
+    public int insertCancel(String xid) {
+        return qgOrderMapper.insertCancel(xid);
     }
 }

@@ -6,6 +6,10 @@ spring:
     url: jdbc:mysql://192.168.1.40:3307/qg_goods
     username: root
     password: ok
+  redis:
+    host: 192.168.1.40
+    password: ok
+    port: 6379
 mybatis:
   mapper-locations: mapper/*Mapper.xml
 dubbo:
