@@ -1,0 +1,9 @@
+server:
+  port: 8082
+
+dubbo:
+  application:
+    name: qg-goods-consumer
+  registry:
+    address: 192.168.1.40:2181
+    protocol: zookeeper
