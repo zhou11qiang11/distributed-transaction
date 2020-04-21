@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class QgOrderProvider {
     public static void main(String[] args) {
         SpringApplication.run(QgOrderProvider.class ,args);
+        System.out.println("OrderProvider-------->启动成功");
     }
 
 }
