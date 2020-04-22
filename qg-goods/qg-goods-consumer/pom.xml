@@ -11,5 +11,8 @@
 
     <artifactId>qg-goods-consumer</artifactId>
 
+    <dependencies>
+
+    </dependencies>
 
 </project>
