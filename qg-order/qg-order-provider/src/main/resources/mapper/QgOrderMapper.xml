@@ -56,7 +56,7 @@
         goodsId,
         num,
         amount,
-        STATUS,
+        1 AS STATUS,
         aliTradeNo,
         createdTime,
         updatedTime

@@ -22,13 +22,15 @@ public class LocalQgGoodsService {
     private QgOrderService qgOrderService;
 
     @Hmily
-    public void qg(String userId, String goodsId, Integer num){
+    public void qg(String userId, String goodsId, Integer num,Integer gid){
 
         QgGoodsTempStock gts = new QgGoodsTempStock();
         gts.setCreatedTime(new Date());
         gts.setGoodsId(goodsId);
         gts.setStatus(0);
         gts.setUserId(userId);
+        gts.setNum(num);
+        gts.setGid(gid);
 
 
         QgOrder order = new QgOrder();

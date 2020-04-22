@@ -6,7 +6,7 @@ import org.dromara.hmily.annotation.Hmily;
 
 public interface QgOrderService {
 
-    //新增数据
+    //下单
     @Hmily
     int insertTry(QgOrder order);
 }
