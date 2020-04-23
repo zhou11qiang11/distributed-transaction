@@ -1,10 +1,12 @@
 package cn.zq.service;
 
 
+import cn.zq.dao.QgGoodsMapper;
 import cn.zq.dao.QgGoodsTempStockMapper;
 import cn.zq.pojo.QgGoodsTempStock;
 import org.apache.dubbo.config.annotation.Service;
 import org.dromara.hmily.annotation.Hmily;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -12,7 +14,8 @@ import javax.annotation.Resource;
 public class QgGoodsTempStockServiceImpl implements QgGoodTempStockService {
     @Resource
     private QgGoodsTempStockMapper qgGoodsTempStockMapper;
-
+    @Resource
+    private QgGoodsMapper qgGoodsMapper;
 
     /**
      * try:预留资源的方式:
@@ -27,24 +30,30 @@ public class QgGoodsTempStockServiceImpl implements QgGoodTempStockService {
      */
 
     @Hmily(confirmMethod = "insertConfirm", cancelMethod = "insertCancel")
-    public int insertTry(QgGoodsTempStock gts) {
+    @Transactional
+    public Integer insertTry(QgGoodsTempStock gts,Integer num) {
+        //保存临时表
         qgGoodsTempStockMapper.insert(gts);
-        qgGoodsTempStockMapper.update(gts);
-        return 1;
+        //冻结库存,把stock中的数量,移动到lockStock中
+        int count =qgGoodsMapper.lockStock(gts.getGoodsId(),num);
+        if(count==0){
+            throw new RuntimeException("库存不足冻结失败!");
+        }
+        return count;
     }
 
-    public int insertConfirm(QgGoodsTempStock gts) {
+    public Integer insertConfirm(QgGoodsTempStock gts,Integer num) {
         System.out.println("执行confirm");
+        qgGoodsMapper.lockStockConfirm(gts.getGoodsId(),num);
         qgGoodsTempStockMapper.confirm(gts.getId());
         qgGoodsTempStockMapper.cancel(gts.getId());
         return 1;
     }
 
-    public int insertCancel(QgGoodsTempStock gts) {
+    public Integer insertCancel(QgGoodsTempStock gts,Integer num) {
         System.out.println("执行cancel");
+        qgGoodsMapper.lockStockCancel(gts.getGoodsId(),num);
          qgGoodsTempStockMapper.cancel(gts.getId());
-         gts.setNum(gts.getNum()*-1);
-         qgGoodsTempStockMapper.update(gts);
         return 1;
     }
 }

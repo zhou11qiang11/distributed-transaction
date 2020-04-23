@@ -22,15 +22,13 @@ public class LocalQgGoodsService {
     private QgOrderService qgOrderService;
 
     @Hmily
-    public void qg(String userId, String goodsId, Integer num,Integer gid){
+    public void qg(String userId, String goodsId, Integer num){
 
         QgGoodsTempStock gts = new QgGoodsTempStock();
         gts.setCreatedTime(new Date());
         gts.setGoodsId(goodsId);
         gts.setStatus(0);
         gts.setUserId(userId);
-        gts.setNum(num);
-        gts.setGid(gid);
 
 
         QgOrder order = new QgOrder();
@@ -43,7 +41,7 @@ public class LocalQgGoodsService {
 
         //TCC分布式事务
             //1.Try
-            int count1 = qgGoodTempStockService.insertTry(gts);
+            int count1 = qgGoodTempStockService.insertTry(gts,num);
             System.out.println("goods---->try,结果:"+count1);
             int count2 = qgOrderService.insertTry(order);
             System.out.println("order---->try,结果:"+count2);

@@ -18,10 +18,10 @@ public class QgController {
      * 抢购
      */
     @PostMapping("/qg")
-    public Map qg(String userId, String goodsId, Integer num,Integer gid) {
+    public Map qg(String userId, String goodsId, Integer num) {
         Map map = new HashMap();
         try {
-            qgGoodsService.qg(userId, goodsId, num,gid);
+            qgGoodsService.qg(userId, goodsId, num);
             map.put("result", true);
         } catch (Exception e) {
             e.printStackTrace();

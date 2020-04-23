@@ -17,12 +17,12 @@ public class QgOrderServiceImpl implements QgOrderService {
     public int insertTry(QgOrder order) {
 //        try {
 //            Thread.sleep(10000);
-            return qgOrderMapper.insert(order);
+//            return qgOrderMapper.insert(order);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //        return 0;
-//        throw new RuntimeException("模拟异常");
+        throw new RuntimeException("模拟异常");
     }
 
     public int insertConfirm(QgOrder order) {

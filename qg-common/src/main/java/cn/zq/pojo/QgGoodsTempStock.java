@@ -13,24 +13,7 @@ public class QgGoodsTempStock implements Serializable{
     private Integer status;
     private java.util.Date createdTime;
     private java.util.Date updatedTime;
-    private Integer gid;
-    private Integer num;
 
-    public Integer getGid() {
-        return gid;
-    }
-
-    public void setGid(Integer gid) {
-        this.gid = gid;
-    }
-
-    public Integer getNum() {
-        return num;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
-    }
 
     public String getId(){
         return this.id;

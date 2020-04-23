@@ -46,8 +46,4 @@
     <delete id="cancel">
         DELETE FROM qg_goods_temp_stock_temp WHERE id=#{id}
     </delete>
-
-    <update id="update">
-        UPDATE qg_goods SET stock=stock-#{num} WHERE id =#{gid}
-    </update>
 </mapper>

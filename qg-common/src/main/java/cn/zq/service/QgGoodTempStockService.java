@@ -8,7 +8,7 @@ public interface QgGoodTempStockService {
 
     //下单
     @Hmily
-    int insertTry(QgGoodsTempStock gts);
+    Integer insertTry(QgGoodsTempStock gts,Integer num);
 
 }
 
