@@ -21,7 +21,6 @@ public class LocalQgGoodsService {
     @Reference(version = "1.0.0",retries = 0,timeout = 10000)
     private QgOrderService qgOrderService;
 
-    @Hmily
     public void qg(String userId, String goodsId, Integer num){
 
         QgGoodsTempStock gts = new QgGoodsTempStock();
@@ -39,11 +38,7 @@ public class LocalQgGoodsService {
         order.setStatus(0);
         order.setUserId(userId);
 
-        //TCC分布式事务
-            //1.Try
-            int count1 = qgGoodTempStockService.insertTry(gts,num);
-            System.out.println("goods---->try,结果:"+count1);
-            int count2 = qgOrderService.insertTry(order);
-            System.out.println("order---->try,结果:"+count2);
+             qgGoodTempStockService.insertTry(gts,num);
+             qgOrderService.insertTry(order);
     }
 }

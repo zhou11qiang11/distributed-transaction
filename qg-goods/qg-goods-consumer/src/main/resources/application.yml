@@ -3,25 +3,20 @@ server:
 
 dubbo:
   application:
-    name: qg-goods-consumer
+    name: qg-goods
   registry:
     address: 192.168.1.40:2181
     protocol: zookeeper
   consumer:
     check: false
-org:
-  dromara:
-    hmily:
-      serializer: kryo
-      recoverDelayTime: 128
-      retryMax: 30
-      scheduledDelay: 128
-      scheduledThreadMax: 10
-      repositorySupport: db
-      started: true
-      async-threads: 200
-      hmilyDbConfig:
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://192.168.1.40:3307/tcc?useUnicode=true&characterEncoding=utf8
-        username: root
-        password: ok
+  protocol:
+    name: dubbo
+    port: -1
+mybatis:
+  mapper-locations: mapper/*.xml
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.40:3307/qg_goods
+    username: root
+    password: ok

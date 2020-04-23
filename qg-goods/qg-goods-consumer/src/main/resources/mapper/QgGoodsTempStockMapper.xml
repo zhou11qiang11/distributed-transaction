@@ -24,26 +24,4 @@
 
 
     </insert>
-    <insert id="confirm">
-        INSERT INTO qg_goods_temp_stock
-        (
-        id,
-        goodsId,
-        userId,
-        STATUS,
-        createdTime,
-        updatedTime
-        )
-        SELECT id,goodsId,userId,1 AS STATUS,
-        createdTime,
-        updatedTime
-        From qg_goods_temp_stock_temp
-        WHERE id =#{id}
-
-    </insert>
-
-
-    <delete id="cancel">
-        DELETE FROM qg_goods_temp_stock_temp WHERE id=#{id}
-    </delete>
 </mapper>

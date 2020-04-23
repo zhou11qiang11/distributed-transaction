@@ -12,15 +12,4 @@
         lockStock=lockStock+#{num}
         WHERE id=#{id} AND stock>=#{num}
     </update>
-    <update id="lockStockConfirm">
-        UPDATE qg_goods
-        SET lockStock=lockStock-#{num}
-        WHERE id=#{id}
-    </update>
-    <update id="lockStockCancel">
-        UPDATE qg_goods
-        SET stock=stock+#{num},
-        lockStock=lockStock-#{num}
-        WHERE id=#{id}
-    </update>
 </mapper>
