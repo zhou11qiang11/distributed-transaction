@@ -1,0 +1,35 @@
+server:
+  port: 8072
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.40:3307/game_pay
+    username: root
+    password: ok
+mybatis:
+  mapper-locations: mapper/*.xml
+dubbo:
+  application:
+    name: game-pay-provider
+  registry:
+    address: 192.168.1.40:2181
+    protocol: zookeeper
+  protocol:
+    port: -1
+    name: dubbo
+org:
+  dromara:
+    hmily:
+      serializer: kryo
+      recover-delay-time: 128
+      retry-max: 30
+      scheduled-delay: 128
+      scheduled-thread-max: 10
+      repository-support: db
+      started: false
+      async-threads: 200
+      hmily-db-config:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.1.40:3307/tcc?useUnicode=true&characterEncoding=utf8
+        username: root
+        password: ok
