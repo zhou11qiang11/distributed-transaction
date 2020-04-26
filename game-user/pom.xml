@@ -12,9 +12,10 @@
     <artifactId>game-user</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>game-user-consumer</module>
-        <module>game-user-provider</module>
+        <module>users</module>
     </modules>
+
+
     <dependencies>
         <dependency>
             <groupId>cn.zq</groupId>
@@ -23,39 +24,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-recipes</artifactId>
-            <version>4.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>2.7.3</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>hmily-spring-boot-starter-apache-dubbo</artifactId>
-            <version>2.0.6-RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mongo-java-driver</artifactId>
-                    <groupId>org.mongodb</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.48</version>
-        </dependency>
-
     </dependencies>
 
 </project>
